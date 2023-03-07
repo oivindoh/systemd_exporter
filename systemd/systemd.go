@@ -371,6 +371,10 @@ func (c *Collector) collectUnit(conn *dbus.Conn, ch chan<- prometheus.Metric, un
 		if err != nil {
 			level.Warn(logger).Log("msg", errUnitMetricsMsg, "err", err)
 		}
+		err = c.collectServiceTasksMetrics(conn, ch, unit)
+		if err != nil {
+			level.Warn(logger).Log("msg", errUnitMetricsMsg, "err", err)
+		}
 	default:
 		level.Debug(c.logger).Log("msg", infoUnitNoHandler, unit.Name)
 	}
